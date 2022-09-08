@@ -12,16 +12,16 @@ from shapely import geometry as geo
 # ---- object: Attitude
 class Attitude(object):
     def rand_uniform_hypersphere(self, N, p):
-            """ 
-            Generate random samples from the uniform distribution on the (p-1)-dimensional 
-            hypersphere $\mathbb{S}^{p-1} \subset \mathbb{R}^{p}$. We use the method by 
-            Muller [1], see also Ref. [2] for other methods.
-            """
+        """ 
+        Generate random samples from the uniform distribution on the (p-1)-dimensional 
+        hypersphere $\mathbb{S}^{p-1} \subset \mathbb{R}^{p}$. We use the method by 
+        Muller [1], see also Ref. [2] for other methods.
+        """
 
-            v = np.random.normal(0,1,(N,p))
-            v = np.divide(v,np.linalg.norm(v,axis=1,keepdims=True))
+        v = np.random.normal(0,1,(N,p))
+        v = np.divide(v,np.linalg.norm(v,axis=1,keepdims=True))
 
-            return v
+        return v
     
     def rand_t_marginal(self, kappa, p=3):
         """

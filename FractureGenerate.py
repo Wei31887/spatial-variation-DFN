@@ -82,8 +82,7 @@ class Generate(Geometry):
                 self.tracelength_function = self.generate_tracelength
         except:
             print('Wrong type of trace length')   
-        
-        
+                
     def __divide_subdomain(self):
         """ Divide domain into several subdomains
         based on the subdomain scale.
@@ -174,7 +173,7 @@ class Generate(Geometry):
 
         return [center_x, center_y, center_z]
     
-    def point_coordinate(self, fracture_center, normal_vector, side_length):
+    def point_coordinate(self, fracture_center, normal_vector, equivalent_radius):
         """ 
         Generate the corordinate of points of fracture
         
@@ -195,8 +194,8 @@ class Generate(Geometry):
         # Choose surface point mode or center point mode
         if self.surface_point:
             tem_theta = random.uniform(0, 2 * math.pi)
-            fracture_center += 0.85 * side_length/2*(2**0.5) * circle_a * math.cos(tem_theta)\
-                            + 0.85 * side_length/2*(2**0.5) * circle_b * math.sin(tem_theta)
+            fracture_center += 0.85 * equivalent_radius * circle_a * math.cos(tem_theta)\
+                            + 0.85 * equivalent_radius * circle_b * math.sin(tem_theta)
         else: 
             pass
 
@@ -208,8 +207,8 @@ class Generate(Geometry):
         theta_list = [random_theta + (each_rotate_theta*i) for i in range(self.fracture_shape)]
         corner_point = np.empty([self.fracture_shape, 4])
         for i, theta in enumerate(theta_list):
-            tem_point = fracture_center + side_length/2*(2**0.5) * circle_a * math.cos(theta)\
-                                        + side_length/2*(2**0.5) * circle_b * math.sin(theta)   
+            tem_point = fracture_center + equivalent_radius * circle_a * math.cos(theta)\
+                                        + equivalent_radius * circle_b * math.sin(theta)   
             tem_list = np.insert(tem_point, 0, values=i+1, axis=0)
             corner_point[i] = tem_list 
            
@@ -366,7 +365,7 @@ class Generate(Geometry):
             elif generate_type == 'p10':
                 self.__generation_p10()
                 
-        except TypeError:
+        except:
             print('Wrong type format')
             
 if __name__ == '__main__':
